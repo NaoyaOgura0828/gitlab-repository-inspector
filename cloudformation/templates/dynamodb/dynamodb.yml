@@ -56,7 +56,7 @@ Resources:
         Enabled: !Ref isTimeToLiveSpecification
       Tags:
         - Key: Name
-          Value: !Sub ${SystemName}-${EnvType}-dynamodb-table-test-manage
+          Value: !Sub ${SystemName}-${EnvType}-dynamodb-gitlab-change-logs
         - Key: SystemName
           Value: !Ref SystemName
         - Key: EnvType
