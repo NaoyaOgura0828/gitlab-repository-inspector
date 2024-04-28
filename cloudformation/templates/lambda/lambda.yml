@@ -45,6 +45,7 @@ Resources:
             - https://gitlab.com/api/v4/projects/${GitLabGroupName}%2F${GitLabProjectName}/repository/commits
             - GitLabGroupName: !Ref GitLabGroupName
               GitLabProjectName: !Ref GitLabProjectName
+          DYNAMODB_TABLE_NAME: !Sub ${SystemName}-${EnvType}-dynamodb-gitlab-change-logs
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}-${EnvType}-lambda-gitlab-repository-inspector
