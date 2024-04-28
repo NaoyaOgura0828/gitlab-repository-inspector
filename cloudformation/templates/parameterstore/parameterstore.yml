@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: ParameterStore for GitLabRepositoryInspector
+
+Parameters:
+  SystemName:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  EnvType:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  AccessTokenTier:
+    Type: String
+    AllowedValues: [Standard, Advanced, Intelligent-Tiering]
+  AccessTokenType:
+    Type: String
+    AllowedValues: [String, StringList]
+  AccessTokenDataType:
+    Type: String
+    AllowedValues: [text, aws:ec2:image]
+  AccessTokenValue:
+    Type: String
+    NoEcho: true
+
+Mappings:
+  AzMap:
+    ap-northeast-1:
+      1st: ap-northeast-1a
+      2nd: ap-northeast-1c
+      3rd: ap-northeast-1d
+
+Resources:
+  ParameterStoreGitLabRepositoryAccessToken:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub ${SystemName}-${EnvType}-parameterstore-gitlab-repository-accesstoken
+      Description: GitLab AccessToken
+      Tier: !Ref AccessTokenTier
+      Type: !Ref AccessTokenType
+      DataType: !Ref AccessTokenDataType
+      Value: !Ref AccessTokenValue
+      Tags:
+        SystemName: !Ref SystemName
+        EnvType: !Ref EnvType

@@ -1,0 +1,28 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "SystemName",
+            "ParameterValue": "inspector"
+        },
+        {
+            "ParameterKey": "EnvType",
+            "ParameterValue": "dev"
+        },
+        {
+            "ParameterKey": "AccessTokenTier",
+            "ParameterValue": "Standard"
+        },
+        {
+            "ParameterKey": "AccessTokenType",
+            "ParameterValue": "String"
+        },
+        {
+            "ParameterKey": "AccessTokenDataType",
+            "ParameterValue": "text"
+        },
+        {
+            "ParameterKey": "AccessTokenValue",
+            "ParameterValue": "glpat-BFixStF8R2bjUyhwKbLb"
+        }
+    ]
+}
