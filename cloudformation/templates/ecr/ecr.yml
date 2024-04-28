@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: ECR for GitLabRepositoryInspector
+
+Parameters:
+  SystemName:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  EnvType:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  isEmptyOnDelete:
+    Type: String
+    AllowedValues: [true, false]
+  ImageTagMutability:
+    Type: String
+    AllowedValues: [MUTABLE, IMMUTABLE]
+  isScanOnPush:
+    Type: String
+    AllowedValues: [true, false]
+  EncryptionType:
+    Type: String
+    AllowedValues: [AES256, KMS]
+  CountNumber:
+    Type: Number
+
+Mappings:
+  AzMap:
+    ap-northeast-1:
+      1st: ap-northeast-1a
+      2nd: ap-northeast-1c
+      3rd: ap-northeast-1d
+
+Conditions:
+  asEncryptionTypeKms: !Equals [!Ref EncryptionType, KMS]
+
+Resources:
+  EcrGitLabChangeLogs:
+    Type: AWS::ECR::Repository
+    Properties:
+      EmptyOnDelete: !Ref isEmptyOnDelete
+      RepositoryName: gitlabchangelogs
+      ImageTagMutability: !Ref ImageTagMutability
+      ImageScanningConfiguration:
+        ScanOnPush: !Ref isScanOnPush
+      EncryptionConfiguration:
+        EncryptionType: !Ref EncryptionType
+        KmsKey: !If
+          - asEncryptionTypeKms
+          - !Sub arn:aws:kms:${AWS::Region}:${AWS::AccountId}:alias/${SystemName}-${EnvType}-kms-ecr
+          - !Ref AWS::NoValue
+      LifecyclePolicy:
+        LifecyclePolicyText: !Sub |
+          {
+            "rules": [
+              {
+                "rulePriority": 1,
+                "description": "Delete more than ${CountNumber} images",
+                "selection": {
+                  "tagStatus": "any",
+                  "countType": "imageCountMoreThan",
+                  "countNumber": ${CountNumber}
+                },
+                "action": {
+                  "type": "expire"
+                }
+              }
+            ]
+          }
+      Tags:
+        - Key: Name
+          Value: gitlabchangelogs
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType

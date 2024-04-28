@@ -1,0 +1,32 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "SystemName",
+            "ParameterValue": "inspector"
+        },
+        {
+            "ParameterKey": "EnvType",
+            "ParameterValue": "dev"
+        },
+        {
+            "ParameterKey": "isEmptyOnDelete",
+            "ParameterValue": "true"
+        },
+        {
+            "ParameterKey": "ImageTagMutability",
+            "ParameterValue": "MUTABLE"
+        },
+        {
+            "ParameterKey": "isScanOnPush",
+            "ParameterValue": "false"
+        },
+        {
+            "ParameterKey": "EncryptionType",
+            "ParameterValue": "AES256"
+        },
+        {
+            "ParameterKey": "CountNumber",
+            "ParameterValue": "5"
+        }
+    ]
+}
