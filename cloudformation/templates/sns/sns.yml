@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: SNS for GitLabRepositoryInspector
+
+Parameters:
+  SystemName:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  EnvType:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  DestinationEmailAddress:
+    Type: String
+
+Mappings:
+  AzMap:
+    ap-northeast-1:
+      1st: ap-northeast-1a
+      2nd: ap-northeast-1c
+      3rd: ap-northeast-1d
+
+Resources:
+  SnsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub ${SystemName}-${EnvType}-sns-topic
+      DisplayName: !Sub ${SystemName}-${EnvType}-sns-topic
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}-${EnvType}-sns-topic
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
+
+  SnsSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref SnsTopic
+      Protocol: email
+      Endpoint: !Ref DestinationEmailAddress
+
+Outputs:
+  SnsTopicArn:
+    Value: !Ref SnsTopic
+    Export:
+      Name: !Sub ${SystemName}-${EnvType}-sns-topic-arn
