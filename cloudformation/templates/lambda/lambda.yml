@@ -7,10 +7,15 @@ Parameters:
     AllowedPattern: '[a-z0-9-]*'
   EnvType:
     Type: String
+    AllowedPattern: '[a-z0-9-]*'
   gitlabchangelogsImageTag:
     Type: String
   LambdaMemorySize:
     Type: Number
+  GitLabGroupName:
+    Type: String
+  GitLabProjectName:
+    Type: String
 
 Mappings:
   AzMap:
@@ -35,8 +40,11 @@ Resources:
       Role: !Sub arn:aws:iam::${AWS::AccountId}:role/${SystemName}-${EnvType}-role-lambda-gitlab-repository-inspector
       Environment:
         Variables:
-          SYSTEM_NAME: !Ref SystemName
-          ENV_TYPE: !Ref EnvType
+          GITLAB_REPOSITORY_ACCESSTOKEN_NAME: !Sub ${SystemName}-${EnvType}-parameterstore-gitlab-repository-accesstoken
+          GITLAB_REPOSITORY_URL: !Sub
+            - https://gitlab.com/api/v4/projects/${GitLabGroupName}%2F${GitLabProjectName}/repository/commits
+            - GitLabGroupName: !Ref GitLabGroupName
+              GitLabProjectName: !Ref GitLabProjectName
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}-${EnvType}-lambda-gitlab-repository-inspector

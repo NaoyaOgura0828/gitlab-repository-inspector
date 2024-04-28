@@ -15,6 +15,14 @@
         {
             "ParameterKey": "LambdaMemorySize",
             "ParameterValue": "128"
+        },
+        {
+            "ParameterKey": "GitLabGroupName",
+            "ParameterValue": "testgroup5901217"
+        },
+        {
+            "ParameterKey": "GitLabProjectName",
+            "ParameterValue": "TestProject"
         }
     ]
 }
