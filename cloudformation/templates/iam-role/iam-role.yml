@@ -1,0 +1,115 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: IAM Role for GitLabRepositoryInspector
+
+Parameters:
+  SystemName:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  EnvType:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+
+Mappings:
+  AzMap:
+    ap-northeast-1:
+      1st: ap-northeast-1a
+      2nd: ap-northeast-1c
+      3rd: ap-northeast-1d
+
+Resources:
+  RoleLambdaGitLabRepositoryInspector:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${SystemName}-${EnvType}-role-lambda-gitlab-repository-inspector
+      Description: !Sub ${SystemName}-${EnvType}-role-lambda-gitlab-repository-inspector
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+        - arn:aws:iam::aws:policy/SecretsManagerReadWrite
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}-${EnvType}-role-lambda-gitlab-repository-inspector
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
+
+  RoleCodeBuild:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${SystemName}-${EnvType}-role-codebuild
+      Description: !Sub ${SystemName}-${EnvType}-role-codebuild
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/amazonec2containerregistryreadonly
+        - arn:aws:iam::aws:policy/amazons3fullaccess
+        - arn:aws:iam::aws:policy/awskeymanagementservicepoweruser
+        - arn:aws:iam::aws:policy/cloudwatchlogsfullaccess
+        - arn:aws:iam::aws:policy/awslambda_fullaccess
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}-${EnvType}-role-codebuild
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
+
+  RoleCodePipeline:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${SystemName}-${EnvType}-role-codepipeline
+      Description: !Sub ${SystemName}-${EnvType}-role-codepipeline
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess
+        - arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}-${EnvType}-role-codepipeline
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
+
+  RoleEventBridge:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${SystemName}-${EnvType}-role-eventbridge
+      Description: !Sub ${SystemName}-${EnvType}-role-eventbridge
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: sts:AssumeRole
+      Tags:
+        - Key: Name
+          Value: !Sub ${SystemName}-${EnvType}-role-eventbridge
+        - Key: SystemName
+          Value: !Ref SystemName
+        - Key: EnvType
+          Value: !Ref EnvType
