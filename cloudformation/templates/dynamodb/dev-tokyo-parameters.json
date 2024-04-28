@@ -1,0 +1,36 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "SystemName",
+            "ParameterValue": "inspector"
+        },
+        {
+            "ParameterKey": "EnvType",
+            "ParameterValue": "dev"
+        },
+        {
+            "ParameterKey": "TableClass",
+            "ParameterValue": "STANDARD"
+        },
+        {
+            "ParameterKey": "BillingMode",
+            "ParameterValue": "PAY_PER_REQUEST"
+        },
+        {
+            "ParameterKey": "isDeletionProtectionEnabled",
+            "ParameterValue": "false"
+        },
+        {
+            "ParameterKey": "isPointInTimeRecoveryEnabled",
+            "ParameterValue": "true"
+        },
+        {
+            "ParameterKey": "isContributorInsightsSpecification",
+            "ParameterValue": "false"
+        },
+        {
+            "ParameterKey": "isTimeToLiveSpecification",
+            "ParameterValue": "false"
+        }
+    ]
+}
