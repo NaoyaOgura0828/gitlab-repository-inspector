@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: EventBridge Schedule for GitLabRepositoryInspector
+
+Parameters:
+  SystemName:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  EnvType:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  State:
+    Type: String
+    AllowedValues: [ENABLED, DISABLED]
+  ScheduleExpressionTimezone:
+    Type: String
+  ScheduleExpression:
+    Type: String
+  FlexibleTimeWindowMode:
+    Type: String
+    AllowedValues: ['OFF', FLEXIBLE]
+  MaximumEventAgeInSeconds:
+    Type: String
+    AllowedPattern: '^(?:[6-9]\d|[1-9]\d{2,3}|[1-8]\d{4}|[1-7]\d{5}|80\d{4}|81\d{3}|82\d{2}|83\d{1}|8400)$'
+  MaximumRetryAttempts:
+    Type: String
+    AllowedPattern: '^(1[0-8][0-5]|1[0-7][0-9]|[1-9]?[0-9])$'
+
+Mappings:
+  AzMap:
+    ap-northeast-1:
+      1st: ap-northeast-1a
+      2nd: ap-northeast-1c
+      3rd: ap-northeast-1d
+
+Resources:
+  ScheduleLambdaGitLabRepositoryInspector:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      State: !Ref State
+      Name: !Sub ${SystemName}-${EnvType}-schedule-lambda-gitlab-repository-inspector
+      Description: !Sub ${SystemName}-${EnvType}-schedule-lambda-gitlab-repository-inspector
+      GroupName: default
+      ScheduleExpressionTimezone: !Ref ScheduleExpressionTimezone
+      ScheduleExpression: !Ref ScheduleExpression
+      FlexibleTimeWindow:
+        Mode: !Sub "${FlexibleTimeWindowMode}"
+      Target:
+        # Arn: arn:aws:lambda:ap-northeast-1:597299534728:function:inspector-dev-lambda-gitlab-repository-inspector
+        Arn:
+          Fn::ImportValue: !Sub ${SystemName}-${EnvType}-lambda-gitlab-repository-inspector-arn
+        RetryPolicy:
+          MaximumEventAgeInSeconds: 86400
+          MaximumRetryAttempts: 185
+        RoleArn: !Sub arn:aws:iam::${AWS::AccountId}:role/${SystemName}-${EnvType}-role-schedule-lambda

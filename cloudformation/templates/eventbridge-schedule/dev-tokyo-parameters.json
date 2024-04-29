@@ -1,0 +1,36 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "SystemName",
+            "ParameterValue": "inspector"
+        },
+        {
+            "ParameterKey": "EnvType",
+            "ParameterValue": "dev"
+        },
+        {
+            "ParameterKey": "State",
+            "ParameterValue": "ENABLED"
+        },
+        {
+            "ParameterKey": "ScheduleExpressionTimezone",
+            "ParameterValue": "Asia/Tokyo"
+        },
+        {
+            "ParameterKey": "ScheduleExpression",
+            "ParameterValue": "cron(0 9 ? * MON-FRI *)"
+        },
+        {
+            "ParameterKey": "FlexibleTimeWindowMode",
+            "ParameterValue": "OFF"
+        },
+        {
+            "ParameterKey": "MaximumEventAgeInSeconds",
+            "ParameterValue": "86400"
+        },
+        {
+            "ParameterKey": "MaximumRetryAttempts",
+            "ParameterValue": "185"
+        }
+    ]
+}
