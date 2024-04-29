@@ -1,0 +1,60 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "SystemName",
+            "ParameterValue": "inspector"
+        },
+        {
+            "ParameterKey": "EnvType",
+            "ParameterValue": "dev"
+        },
+        {
+            "ParameterKey": "VersioningStatus",
+            "ParameterValue": "Suspended"
+        },
+        {
+            "ParameterKey": "isBucketKeyEnabled",
+            "ParameterValue": "true"
+        },
+        {
+            "ParameterKey": "SSEAlgorithm",
+            "ParameterValue": "AES256"
+        },
+        {
+            "ParameterKey": "isEventBridgeEnabled",
+            "ParameterValue": "false"
+        },
+        {
+            "ParameterKey": "AccelerationStatus",
+            "ParameterValue": "Suspended"
+        },
+        {
+            "ParameterKey": "isObjectLockEnabled",
+            "ParameterValue": "false"
+        },
+        {
+            "ParameterKey": "isStaticWebsiteEnabled",
+            "ParameterValue": "false"
+        },
+        {
+            "ParameterKey": "isBlockPublicAclsEnabled",
+            "ParameterValue": "true"
+        },
+        {
+            "ParameterKey": "isIgnorePublicAclsEnabled",
+            "ParameterValue": "true"
+        },
+        {
+            "ParameterKey": "isBlockPublicPolicyEnabled",
+            "ParameterValue": "true"
+        },
+        {
+            "ParameterKey": "isRestrictPublicBucketsEnabled",
+            "ParameterValue": "true"
+        },
+        {
+            "ParameterKey": "ObjectOwnership",
+            "ParameterValue": "BucketOwnerEnforced"
+        }
+    ]
+}
