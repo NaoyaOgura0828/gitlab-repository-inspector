@@ -55,3 +55,9 @@ Resources:
           Value: !Ref SystemName
         - Key: EnvType
           Value: !Ref EnvType
+
+Outputs:
+  LambdaGitLabRepositoryInspectorArn:
+    Value: !GetAtt LambdaGitLabRepositoryInspector.Arn
+    Export:
+      Name: !Sub ${SystemName}-${EnvType}-lambda-gitlab-repository-inspector-arn
