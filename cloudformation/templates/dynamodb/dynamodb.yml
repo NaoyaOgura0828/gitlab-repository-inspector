@@ -40,10 +40,10 @@ Resources:
     Properties:
       TableName: !Sub ${SystemName}-${EnvType}-dynamodb-gitlab-change-logs
       AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: commit_id
           AttributeType: S
       KeySchema:
-        - AttributeName: id
+        - AttributeName: commit_id
           KeyType: HASH
       TableClass: !Ref TableClass
       BillingMode: !Ref BillingMode
