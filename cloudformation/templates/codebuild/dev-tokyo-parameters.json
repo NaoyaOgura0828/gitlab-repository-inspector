@@ -1,0 +1,28 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "SystemName",
+            "ParameterValue": "inspector"
+        },
+        {
+            "ParameterKey": "EnvType",
+            "ParameterValue": "dev"
+        },
+        {
+            "ParameterKey": "ReleaseImageTag",
+            "ParameterValue": "latest"
+        },
+        {
+            "ParameterKey": "BuildEnvironmentImage",
+            "ParameterValue": "aws/codebuild/standard:7.0"
+        },
+        {
+            "ParameterKey": "BuildEnvironmentSpec",
+            "ParameterValue": "BUILD_GENERAL1_SMALL"
+        },
+        {
+            "ParameterKey": "BuildEnvironmentType",
+            "ParameterValue": "LINUX_CONTAINER"
+        }
+    ]
+}
