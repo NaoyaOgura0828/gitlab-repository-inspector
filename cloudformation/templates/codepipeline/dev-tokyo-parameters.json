@@ -10,7 +10,7 @@
         },
         {
             "ParameterKey": "ReleaseImageTag",
-            "ParameterValue": "latet"
+            "ParameterValue": "latest"
         }
     ]
 }

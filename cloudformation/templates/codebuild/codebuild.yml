@@ -62,7 +62,7 @@ Resources:
                   sort -t '-' -k1,1 -k2,2 -k3,3r |
                   head -n 1)
                 - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
-                - ECR_IMAGE_URI="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$IMAGE_TAG"
+                - ECR_IMAGE_URI="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$RELEASE_IMAGE_TAG"
                 # Update Lambda function
                 - aws lambda update-function-code --function-name ${SystemName}-${EnvType}-lambda-gitlab-repository-inspector --image-uri $ECR_IMAGE_URI
       TimeoutInMinutes: 60

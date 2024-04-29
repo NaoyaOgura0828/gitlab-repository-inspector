@@ -10,7 +10,7 @@
         },
         {
             "ParameterKey": "gitlabchangelogsImageTag",
-            "ParameterValue": "2024-04-28"
+            "ParameterValue": "latest"
         },
         {
             "ParameterKey": "LambdaMemorySize",
