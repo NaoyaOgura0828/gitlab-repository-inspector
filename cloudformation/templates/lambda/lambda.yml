@@ -40,12 +40,14 @@ Resources:
       Role: !Sub arn:aws:iam::${AWS::AccountId}:role/${SystemName}-${EnvType}-role-lambda-gitlab-repository-inspector
       Environment:
         Variables:
+          DYNAMODB_TABLE_NAME: !Sub ${SystemName}-${EnvType}-dynamodb-gitlab-change-logs
           GITLAB_REPOSITORY_ACCESSTOKEN_NAME: !Sub ${SystemName}-${EnvType}-parameterstore-gitlab-repository-accesstoken
           GITLAB_REPOSITORY_URL: !Sub
             - https://gitlab.com/api/v4/projects/${GitLabGroupName}%2F${GitLabProjectName}/repository/commits
             - GitLabGroupName: !Ref GitLabGroupName
               GitLabProjectName: !Ref GitLabProjectName
-          DYNAMODB_TABLE_NAME: !Sub ${SystemName}-${EnvType}-dynamodb-gitlab-change-logs
+          SNS_TOPIC_ARN:
+            Fn::ImportValue: !Sub ${SystemName}-${EnvType}-sns-topic-arn
       Tags:
         - Key: Name
           Value: !Sub ${SystemName}-${EnvType}-lambda-gitlab-repository-inspector
