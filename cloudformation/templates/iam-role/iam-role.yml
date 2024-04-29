@@ -92,11 +92,11 @@ Resources:
         - Key: EnvType
           Value: !Ref EnvType
 
-  RoleEventBridge:
+  RoleRuleCodePipeline:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub ${SystemName}-${EnvType}-role-eventbridge
-      Description: !Sub ${SystemName}-${EnvType}-role-eventbridge
+      RoleName: !Sub ${SystemName}-${EnvType}-role-rule-codepipeline
+      Description: !Sub ${SystemName}-${EnvType}-role-rule-codepipeline
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSCodePipeline_FullAccess
       AssumeRolePolicyDocument:
@@ -108,7 +108,7 @@ Resources:
             Action: sts:AssumeRole
       Tags:
         - Key: Name
-          Value: !Sub ${SystemName}-${EnvType}-role-eventbridge
+          Value: !Sub ${SystemName}-${EnvType}-role-rule-codepipeline
         - Key: SystemName
           Value: !Ref SystemName
         - Key: EnvType
