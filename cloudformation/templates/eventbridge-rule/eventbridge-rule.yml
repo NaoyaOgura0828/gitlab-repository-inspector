@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: EventBridge Rule for GitLabRepositoryInspector
+
+Parameters:
+  SystemName:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  EnvType:
+    Type: String
+    AllowedPattern: '[a-z0-9-]*'
+  ReleaseImageTag:
+    Type: String
+
+Mappings:
+  AzMap:
+    ap-northeast-1:
+      1st: ap-northeast-1a
+      2nd: ap-northeast-1c
+      3rd: ap-northeast-1d
+
+Resources:
+  RuleCodePipelineGitLabRepositoryInspector:
+    Type: AWS::Events::Rule
+    Properties:
+      State: ENABLED
+      Name: !Sub ${SystemName}-${EnvType}-rule-codepipeline-gitlab-repository-inspector
+      Description: !Sub ${SystemName}-${EnvType}-rule-codepipeline-gitlab-repository-inspector
+      EventPattern:
+        source:
+          - aws.ecr
+        detail-type:
+          - ECR Image Action
+        detail:
+          action-type:
+            - PUSH
+          repository-name:
+            - gitlabchangelogs
+          image-tag:
+            - !Ref ReleaseImageTag
+          result:
+            - SUCCESS
+      Targets:
+        - Id: !Sub ${SystemName}-${EnvType}-codepipeline-gitlab-repository-inspector
+          Arn: !Sub arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:${SystemName}-${EnvType}-codepipeline-gitlab-repository-inspector
+          RoleArn: !Sub arn:aws:iam::${AWS::AccountId}:role/${SystemName}-${EnvType}-role-rule-codepipeline
