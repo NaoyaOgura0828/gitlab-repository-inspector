@@ -1,11 +1,9 @@
 FROM public.ecr.aws/lambda/python:3.12
 
-WORKDIR /var/task
-
 COPY requirements.txt  .
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
 
-COPY inspector.py .
+COPY inspector.py "${LAMBDA_TASK_ROOT}"
 
-CMD ['inspector.lambda_handler']
+CMD ["inspector.lambda_handler"]
